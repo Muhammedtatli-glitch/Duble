@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Duble simgesi: sol yarı gündüz (kahve), sağ yarı akşam (köz) -->
+  <clipPath id="sol"><rect width="50" height="100" /></clipPath>
+  <rect width="100" height="100" rx="22" fill="#300810" />
+  <rect width="100" height="100" rx="22" fill="#422a1b" clip-path="url(#sol)" />
+  <text x="50" y="76" text-anchor="middle" font-family="Georgia, serif" font-size="76" font-weight="700" fill="#ff5a36">D</text>
+  <text x="50" y="76" text-anchor="middle" font-family="Georgia, serif" font-size="76" font-weight="700" fill="#ffa23a" clip-path="url(#sol)">D</text>
+</svg>

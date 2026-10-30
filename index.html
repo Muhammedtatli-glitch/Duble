@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Duble — Kahve & Burger · Ankara</title>
+
+  <!-- Sekme simgesi (favicon): gündüz/akşam D -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <!-- Yazı tipleri (Google Fonts'tan ücretsiz) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+  <!-- Görünüm dosyamız -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-tema="gunduz">
+
+  <!-- SÜS ŞEKİLLERİ: bir kez çizilir, aşağıda istediğimiz kadar kullanılır (<use>) -->
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+    <symbol id="s-cekirdek" viewBox="0 0 100 100">
+      <ellipse class="s-cekirdek" cx="50" cy="50" rx="28" ry="38" />
+      <path class="s-cizgi" d="M50 16 C64 38 36 62 50 84" />
+    </symbol>
+    <symbol id="s-fincan" viewBox="0 0 100 100">
+      <ellipse class="s-dolgu" cx="47" cy="86" rx="36" ry="7" />
+      <path class="s-dolgu" d="M18 40 H76 V52 C76 74 63 82 47 82 C31 82 18 74 18 52 Z" />
+      <path class="s-sap" d="M76 48 C93 48 93 70 73 70" />
+      <ellipse class="s-kahve" cx="47" cy="40" rx="29" ry="5" />
+    </symbol>
+    <symbol id="s-patates" viewBox="0 0 100 100">
+      <rect class="s-patates" x="38" y="6" width="24" height="88" rx="5" />
+      <path class="s-patates-iz" d="M46 22 V34 M54 50 V62 M46 72 V82" />
+    </symbol>
+    <symbol id="s-ketcap" viewBox="0 0 100 100">
+      <path class="s-ketcap" d="M50 8 C50 8 80 46 80 64 A30 30 0 0 1 20 64 C20 46 50 8 50 8 Z" />
+      <ellipse class="s-parlak" cx="38" cy="62" rx="6" ry="10" />
+    </symbol>
+    <symbol id="s-hardal" viewBox="0 0 100 100">
+      <path class="s-hardal" d="M50 8 C50 8 80 46 80 64 A30 30 0 0 1 20 64 C20 46 50 8 50 8 Z" />
+      <ellipse class="s-parlak" cx="38" cy="62" rx="6" ry="10" />
+    </symbol>
+  </svg>
+
+  <!-- KENARLARDA SÜZÜLEN SÜSLER (sadece geniş ekranda, yazıların arkasında) -->
+  <!-- Her süsün yeri (left), boyu, hızı, gecikmesi, dönüşü ve salınımı kendi satırında -->
+  <div class="susler" aria-hidden="true">
+
+    <!-- Gündüz: kahve çekirdekleri ve fincanlar -->
+    <div class="sus-grup gorsel-gunduz">
+      <svg class="sus" style="left: 3%;  --boy: 30px; --sure: 28s; --gecikme: -2s;  --don: 220deg;  --salin: 30px"><use href="#s-cekirdek" /></svg>
+      <svg class="sus" style="left: 8%;  --boy: 46px; --sure: 34s; --gecikme: -14s; --don: 40deg;   --salin: -25px"><use href="#s-fincan" /></svg>
+      <svg class="sus" style="left: 5%;  --boy: 22px; --sure: 24s; --gecikme: -18s; --don: -260deg; --salin: 20px"><use href="#s-cekirdek" /></svg>
+      <svg class="sus" style="left: 1%;  --boy: 26px; --sure: 31s; --gecikme: -9s;  --don: 180deg;  --salin: -18px"><use href="#s-cekirdek" /></svg>
+      <svg class="sus" style="left: 91%; --boy: 40px; --sure: 30s; --gecikme: -6s;  --don: -30deg;  --salin: 22px"><use href="#s-fincan" /></svg>
+      <svg class="sus" style="left: 95%; --boy: 28px; --sure: 26s; --gecikme: -20s; --don: 240deg;  --salin: -30px"><use href="#s-cekirdek" /></svg>
+      <svg class="sus" style="left: 88%; --boy: 20px; --sure: 22s; --gecikme: -11s; --don: -200deg; --salin: 15px"><use href="#s-cekirdek" /></svg>
+      <svg class="sus" style="left: 96%; --boy: 34px; --sure: 36s; --gecikme: -26s; --don: 25deg;   --salin: -20px"><use href="#s-fincan" /></svg>
+    </div>
+
+    <!-- Akşam: patates kızartmaları ve sos damlaları -->
+    <div class="sus-grup gorsel-aksam">
+      <svg class="sus" style="left: 3%;  --boy: 40px; --sure: 26s; --gecikme: -4s;  --don: 300deg;  --salin: 28px"><use href="#s-patates" /></svg>
+      <svg class="sus" style="left: 8%;  --boy: 30px; --sure: 32s; --gecikme: -16s; --don: -40deg;  --salin: -22px"><use href="#s-ketcap" /></svg>
+      <svg class="sus" style="left: 5%;  --boy: 34px; --sure: 23s; --gecikme: -12s; --don: -280deg; --salin: 18px"><use href="#s-patates" /></svg>
+      <svg class="sus" style="left: 1%;  --boy: 24px; --sure: 29s; --gecikme: -22s; --don: 30deg;   --salin: -16px"><use href="#s-hardal" /></svg>
+      <svg class="sus" style="left: 91%; --boy: 28px; --sure: 30s; --gecikme: -8s;  --don: 35deg;   --salin: 24px"><use href="#s-hardal" /></svg>
+      <svg class="sus" style="left: 95%; --boy: 42px; --sure: 25s; --gecikme: -19s; --don: -320deg; --salin: -28px"><use href="#s-patates" /></svg>
+      <svg class="sus" style="left: 88%; --boy: 26px; --sure: 34s; --gecikme: -3s;  --don: -25deg;  --salin: 16px"><use href="#s-ketcap" /></svg>
+      <svg class="sus" style="left: 96%; --boy: 32px; --sure: 27s; --gecikme: -14s; --don: 260deg;  --salin: -20px"><use href="#s-patates" /></svg>
+    </div>
+
+  </div>
+
+  <!-- 1. ÜST MENÜ (header) -->
+  <header class="ust-menu">
+    <a href="#" class="logo">Duble</a>
+    <nav>
+      <a href="#menu" data-en="Menu">Menü</a>
+      <a href="#hakkimizda" data-en="About">Hakkımızda</a>
+      <a href="#iletisim" data-en="Contact">İletişim</a>
+      <button id="dil-butonu" class="dil-butonu" aria-label="Dili değiştir / Change language">EN</button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- 2. KARŞILAMA ALANI (hero) -->
+    <section class="karsilama">
+
+      <!-- Arka plan: temaya göre fotoğraf ve üstünde uçan tanecikler -->
+      <div class="karsilama-arka" aria-hidden="true">
+        <img class="arka-foto gorsel-gunduz" src="gorseller/web/kahve-1.jpg" alt="">
+        <img class="arka-foto gorsel-aksam" src="gorseller/web/burger-2.jpg" alt="">
+
+        <!-- Gündüz: fincandan yükselen aroma tanecikleri -->
+        <svg class="tanecikler gorsel-gunduz" viewBox="0 0 1600 900" preserveAspectRatio="xMaxYMid slice">
+          <circle class="tane tane-krem"    cx="880"  cy="345" r="5"   style="--x: 20px;  --yol: -280px; animation-delay: 0s;   animation-duration: 5s" />
+          <circle class="tane tane-vurgu-2" cx="940"  cy="338" r="4"   style="--x: -30px; --yol: -320px; animation-delay: 0.8s; animation-duration: 5.5s" />
+          <circle class="tane tane-krem"    cx="1000" cy="348" r="6"   style="--x: 25px;  --yol: -260px; animation-delay: 1.6s; animation-duration: 4.8s" />
+          <circle class="tane tane-vurgu"   cx="1060" cy="340" r="3.5" style="--x: -20px; --yol: -300px; animation-delay: 2.3s; animation-duration: 5.2s" />
+          <circle class="tane tane-krem"    cx="1120" cy="350" r="3"   style="--x: 35px;  --yol: -240px; animation-delay: 3.1s; animation-duration: 4.6s" />
+          <circle class="tane tane-vurgu-2" cx="1180" cy="336" r="4.5" style="--x: -40px; --yol: -340px; animation-delay: 3.8s; animation-duration: 6s" />
+          <circle class="tane tane-krem"    cx="1240" cy="345" r="3"   style="--x: 15px;  --yol: -280px; animation-delay: 4.4s; animation-duration: 5s" />
+          <circle class="tane tane-vurgu"   cx="960"  cy="352" r="5"   style="--x: -15px; --yol: -300px; animation-delay: 1.2s; animation-duration: 5.8s" />
+          <circle class="tane tane-vurgu-2" cx="1030" cy="342" r="3.5" style="--x: 30px;  --yol: -260px; animation-delay: 2.8s; animation-duration: 5.4s" />
+          <circle class="tane tane-krem"    cx="1150" cy="348" r="4"   style="--x: -25px; --yol: -320px; animation-delay: 0.4s; animation-duration: 6.2s" />
+        </svg>
+
+        <!-- Akşam: közden uçan kıvılcımlar -->
+        <svg class="tanecikler gorsel-aksam" viewBox="0 0 1600 900" preserveAspectRatio="xMaxYMid slice">
+          <circle class="tane tane-vurgu-2" cx="120"  cy="500" r="4"   style="--x: 40px;  --yol: -360px; animation-delay: 0s;   animation-duration: 3.6s" />
+          <circle class="tane tane-vurgu"   cx="200"  cy="480" r="3"   style="--x: -30px; --yol: -300px; animation-delay: 0.6s; animation-duration: 3.2s" />
+          <circle class="tane tane-vurgu-2" cx="290"  cy="510" r="5"   style="--x: 55px;  --yol: -420px; animation-delay: 1.3s; animation-duration: 4.4s" />
+          <circle class="tane tane-vurgu"   cx="360"  cy="470" r="3.5" style="--x: -45px; --yol: -340px; animation-delay: 2s;   animation-duration: 3.8s" />
+          <circle class="tane tane-vurgu-2" cx="450"  cy="500" r="3"   style="--x: 25px;  --yol: -380px; animation-delay: 2.7s; animation-duration: 4s" />
+          <circle class="tane tane-vurgu"   cx="520"  cy="520" r="4.5" style="--x: -20px; --yol: -320px; animation-delay: 0.3s; animation-duration: 3.4s" />
+          <circle class="tane tane-vurgu-2" cx="600"  cy="490" r="3"   style="--x: 60px;  --yol: -400px; animation-delay: 1.8s; animation-duration: 4.6s" />
+          <circle class="tane tane-vurgu"   cx="680"  cy="505" r="4"   style="--x: -35px; --yol: -360px; animation-delay: 3.3s; animation-duration: 3.9s" />
+          <circle class="tane tane-vurgu-2" cx="760"  cy="480" r="3.5" style="--x: 30px;  --yol: -300px; animation-delay: 1s;   animation-duration: 3.3s" />
+          <circle class="tane tane-vurgu"   cx="240"  cy="515" r="2.5" style="--x: -50px; --yol: -440px; animation-delay: 3.8s; animation-duration: 4.8s" />
+          <circle class="tane tane-vurgu-2" cx="410"  cy="525" r="2.5" style="--x: 45px;  --yol: -390px; animation-delay: 2.3s; animation-duration: 4.2s" />
+          <circle class="tane tane-vurgu"   cx="560"  cy="470" r="3"   style="--x: -25px; --yol: -330px; animation-delay: 4.2s; animation-duration: 3.6s" />
+          <circle class="tane tane-vurgu-2" cx="1000" cy="330" r="3"   style="--x: 20px;  --yol: -260px; animation-delay: 1.5s; animation-duration: 3.5s" />
+          <circle class="tane tane-vurgu"   cx="1220" cy="320" r="2.5" style="--x: -30px; --yol: -280px; animation-delay: 3s;   animation-duration: 4s" />
+          <circle class="tane tane-vurgu-2" cx="1300" cy="560" r="3.5" style="--x: 35px;  --yol: -380px; animation-delay: 0.9s; animation-duration: 4.2s" />
+          <circle class="tane tane-vurgu"   cx="1420" cy="540" r="3"   style="--x: -40px; --yol: -340px; animation-delay: 2.5s; animation-duration: 3.7s" />
+          <circle class="tane tane-vurgu-2" cx="1520" cy="570" r="4"   style="--x: 20px;  --yol: -420px; animation-delay: 1.7s; animation-duration: 4.6s" />
+          <circle class="tane tane-vurgu"   cx="1360" cy="580" r="2.5" style="--x: -25px; --yol: -360px; animation-delay: 3.6s; animation-duration: 4s" />
+        </svg>
+      </div>
+
+      <div class="karsilama-yazi">
+        <p class="rozet">
+          <span class="sadece-gunduz" data-en="☕ It's coffee time">☕ Şu an kahve saatleri</span>
+          <span class="sadece-aksam" data-en="🔥 It's burger time">🔥 Şu an burger saatleri</span>
+        </p>
+        <h1>
+          <span class="sadece-gunduz" data-en="Double the joy, get ready for a double!">Duble keyfe, duble hazır olun!</span>
+          <span class="sadece-aksam" data-en="Tonight's double is on the hot grill 🔥">Akşamın dublesi sıcacık ızgarada 🔥</span>
+        </h1>
+        <p class="alt-baslik">
+          <span class="sadece-gunduz" data-en="Freshly ground coffee and a quiet corner, right at Çakırlar in Ankara. Our burgers are ready too, the grill is waiting for you.">Ankara Çakırlar'da taze çekilmiş kahve ve sakin bir köşe. Burgerimiz de hazır, ızgara seni bekliyor.</span>
+          <span class="sadece-aksam" data-en="After 5 pm the grill fires up. The scent of embers, a double patty and a coffee on the side.">Saat 17:00'den sonra ızgara harlanır. Köz kokusu, duble köfte ve yanında bir kahve.</span>
+        </p>
+        <a href="#menu" class="buton" data-en="See the menu">Menüye göz at</a>
+      </div>
+    </section>
+
+    <!-- KAYAN YAZI ŞERİDİ -->
+    <div class="serit" aria-hidden="true">
+      <div class="serit-ic">
+        <!-- Aynı grup iki kez yazılı; böylece kayarken arada boşluk görünmez -->
+        <div class="serit-grup">
+          <span>Duble Espresso</span><i></i>
+          <span>Duble Burger</span><i></i>
+          <span>Çakırlar</span><i></i>
+          <span>Ankara</span><i></i>
+          <span>Duble Espresso</span><i></i>
+          <span>Duble Burger</span><i></i>
+          <span>Çakırlar</span><i></i>
+          <span>Ankara</span><i></i>
+        </div>
+        <div class="serit-grup">
+          <span>Duble Espresso</span><i></i>
+          <span>Duble Burger</span><i></i>
+          <span>Çakırlar</span><i></i>
+          <span>Ankara</span><i></i>
+          <span>Duble Espresso</span><i></i>
+          <span>Duble Burger</span><i></i>
+          <span>Çakırlar</span><i></i>
+          <span>Ankara</span><i></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- GÜNÜN RİTMİ -->
+    <section id="ritim" class="bolum belir">
+      <h2 data-en="The rhythm of the day">Günün ritmi</h2>
+      <p class="bolum-aciklama" id="ritim-durum">Duble'de gün ikiye ayrılır.</p>
+      <div class="ritim-cubuk"><div class="ritim-dolu" id="ritim-dolu"></div></div>
+      <div class="ritim-adimlar">
+        <div><span class="ritim-saat">08:00</span><h3 data-en="Coffee aroma">Kahve kokusu</h3><p data-en="Doors open, the first espresso is pulled.">Kapılar açılır, ilk espresso çekilir.</p></div>
+        <div><span class="ritim-saat">17:00</span><h3 data-en="The grill fires up">Izgara harlanır</h3><p data-en="The place and this site switch to evening mode.">Mekân da site de akşam moduna geçer.</p></div>
+        <div><span class="ritim-saat">24:00</span><h3 data-en="Last double">Son duble</h3><p data-en="The last coffee and the last burger of the day.">Günün son kahvesi, son burgeri.</p></div>
+      </div>
+    </section>
+
+    <!-- 3. MENÜ -->
+    <section id="menu" class="bolum belir">
+      <h2 data-en="Menu">Menü</h2>
+      <p class="bolum-aciklama" data-en="Coffee and burgers all day long. Prices are examples.">Kahve de burger de gün boyu var. Fiyatlar örnektir.</p>
+
+      <div class="menu-izgara">
+
+        <div class="menu-kart menu-kahve">
+          <img class="menu-foto" src="gorseller/web/kahve-4-turkce.jpg" alt="Ahşap masada latte art'lı bir latte" data-en-alt="A latte with latte art on a wooden table" loading="lazy">
+          <h3>
+            <!-- Küçük hareketli fincan çizimi -->
+            <svg class="cizim mini-cizim" viewBox="0 0 240 240" aria-hidden="true">
+              <path class="buhar" d="M92 92 C82 78 102 70 92 56 C82 42 102 34 92 20" />
+              <path class="buhar buhar-2" d="M112 92 C102 78 122 70 112 56 C102 42 122 34 112 20" />
+              <path class="buhar buhar-3" d="M132 92 C122 78 142 70 132 56 C122 42 142 34 132 20" />
+              <ellipse class="dolgu" cx="112" cy="198" rx="88" ry="14" />
+              <path class="dolgu" d="M52 108 H172 V132 C172 172 146 192 112 192 C78 192 52 172 52 132 Z" />
+              <path class="cizgi-kalin" d="M172 122 C204 122 204 166 166 166" />
+              <ellipse class="kahve" cx="112" cy="108" rx="60" ry="10" />
+              <ellipse class="krema" cx="112" cy="108" rx="44" ry="6" />
+            </svg>
+            <em class="kart-baslik" data-en="Coffee">Kahveler</em>
+          </h3>
+          <ul>
+            <li><div><strong>Espresso</strong><small data-en="Single shot, short and intense">Tek shot, yoğun ve kısa</small></div><span>140 ₺</span></li>
+            <li><div><strong data-en="Double Espresso">Duble Espresso</strong><small data-en="The reason for our name">Adımızın sebebi</small></div><span>180 ₺</span></li>
+            <li><div><strong>Latte</strong><small data-en="Espresso with silky milk">Espresso ve ipeksi süt</small></div><span>200 ₺</span></li>
+            <li><div><strong>Flat White</strong><small data-en="Less milk, more coffee">Daha az süt, daha çok kahve</small></div><span>190 ₺</span></li>
+            <li><div><strong data-en="Cold Brew">Soğuk Demleme</strong><small data-en="Perfect for an Ankara summer">Ankara yazına birebir</small></div><span>170 ₺</span></li>
+          </ul>
+        </div>
+
+        <div class="menu-kart menu-burger">
+          <img class="menu-foto" src="gorseller/web/burger-1.jpg" alt="Közün önünde duble cheeseburger" data-en-alt="A double cheeseburger in front of glowing embers" loading="lazy">
+          <h3>
+            <!-- Küçük hareketli burger çizimi -->
+            <svg class="cizim mini-cizim" viewBox="0 0 240 240" aria-hidden="true">
+              <path class="buhar" d="M100 64 C90 50 110 42 100 28 C90 14 110 6 100 -8" />
+              <path class="buhar buhar-2" d="M140 64 C130 50 150 42 140 28 C130 14 150 6 140 -8" />
+              <path class="dolgu" d="M44 120 C44 70 196 70 196 120 Z" />
+              <path class="cizgi-kalin" d="M38 126 Q50 136 62 126 Q74 136 86 126 Q98 136 110 126 Q122 136 134 126 Q146 136 158 126 Q170 136 182 126 Q194 136 202 126" />
+              <rect class="dolgu" x="40" y="136" width="160" height="24" rx="12" />
+              <path class="peynir" d="M44 134 H196 L188 146 H168 L160 158 L152 146 H92 L84 154 L76 146 H52 Z" />
+              <path class="dolgu" d="M44 166 H196 C196 186 182 194 162 194 H78 C58 194 44 186 44 166 Z" />
+            </svg>
+            <em class="kart-baslik" data-en="Burgers">Burgerler</em>
+          </h3>
+          <ul>
+            <li><div><strong data-en="Classic Burger">Klasik Burger</strong><small data-en="Charcoal-grilled patty, lettuce, tomato">Közde köfte, marul, domates</small></div><span>320 ₺</span></li>
+            <li><div><strong>Cheeseburger</strong><small data-en="With melted cheddar">Eriyen cheddar ile</small></div><span>360 ₺</span></li>
+            <li><div><strong>Smoky Burger</strong><small data-en="Rich smoky flavor, BBQ sauce">Leziz füme, BBQ sos</small></div><span>380 ₺</span></li>
+            <li><div><strong data-en="Double Burger">Duble Burger</strong><small data-en="Two patties, two cheddars, pure delight">İki köfte, iki cheddar, enfes lezzet</small></div><span>420 ₺</span></li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. HAKKIMIZDA -->
+    <section id="hakkimizda" class="bolum belir">
+      <h2 data-en="About us">Hakkımızda</h2>
+      <div class="hikaye">
+        <p data-en="A close friend and I spent years working behind other people's counters. One of us frothed milk from morning till night, the other flipped patties on the grill all day long. One day we sat down at the same table and realized it was time for something to change. So we put our heads together, started working on an idea, and here we are…">Çok yakın bir dostum ve ben, yıllarca başkalarının tezgâhında çalışıp durduk. Birimiz sabahtan akşama kadar süt köpürtüyordu, diğerimiz gün boyu ızgara başında köfte çevirip duruyordu. Bir gün aynı masada oturduk ve şunu fark ettik: Artık bir şeylerin değişme vakti gelmişti. Biz de kafa kafaya verip bir fikir üzerinde çalışmaya başladık ve işte buradayız…</p>
+        <p data-en="Coffee aroma by day, the sound of embers by night. We brought both together under one roof for you: double espresso, double burger.">Gündüz kahve kokusu, akşam köz sesi. İkisini de sizler için tek bir çatı altında topladık: duble espresso, duble burger.</p>
+      </div>
+    </section>
+
+    <!-- 5. İLETİŞİM -->
+    <section id="iletisim" class="bolum belir">
+      <h2 data-en="Contact">İletişim</h2>
+      <div class="iletisim-izgara">
+        <div><h3 data-en="Address">Adres</h3><p>Çakırlar, Ankara</p></div>
+        <div><h3 data-en="Opening hours">Çalışma saatleri</h3><p data-en="Every day 08:00 – 24:00">Her gün 08:00 – 24:00</p></div>
+        <div><h3 data-en="Social media">Sosyal medya</h3><p data-en="Coming soon">Yakında</p></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 6. ALT BİLGİ (footer) -->
+  <footer class="alt-bilgi">
+    <p data-en="© 2026 Duble · This is a practice project, not a real business.">© 2026 Duble · Bu bir alıştırma projesidir, gerçek bir işletme değildir.</p>
+  </footer>
+
+  <!-- Tema butonu: gündüz / akşam arasında elle geçiş (yazısını JavaScript verir) -->
+  <div class="deneme-butonlari">
+    <button id="tema-butonu" class="tema-butonu">🌙 Akşama geç</button>
+  </div>
+
+  <!-- Davranış dosyamız (en sonda yüklenir) -->
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,831 @@
+/* ============================================
+   RENKLER (temalar)
+   Her tema aynı isimli renkleri farklı değerlerle tanımlar.
+   ============================================ */
+
+/* Ana vurgu (--vurgu) büyük yerlerde: buton, logo, fiyatlar.
+   İkinci vurgu (--vurgu-2) küçük ayrıntılarda: rozet, çekirdekler, kıvılcımlar. */
+
+/* Gündüz teması: koyu kahve, kehribar ve fıstık yeşili */
+body[data-tema="gunduz"] {
+  --arka: #241008;
+  --yuzey: #422a1b;
+  --yazi: #fbe9d7;    /* şeftalimsi krem */
+  --soluk: #ebc398;
+  --vurgu: #ffa23a;   /* canlı kehribar */
+  --vurgu-2: #9fd18b; /* fıstık yeşili */
+  --cizgi: rgba(239, 228, 214, 0.1);
+}
+
+/* Akşam teması: siyaha yakın bordo, köz kırmızısı ve altın sarısı */
+body[data-tema="aksam"] {
+  --arka: #140201;
+  --yuzey: #300810;
+  --yazi: #fff1ea;    /* sıcak beyaz */
+  --soluk: #e8b9a0;   /* yumuşak şeftali */
+  --vurgu: #ff5a36;   /* köz kırmızısı */
+  --vurgu-2: #ffc94a; /* altın sarısı */
+  --cizgi: rgba(242, 236, 230, 0.1);
+}
+
+/* Temaya göre yazıları göster / gizle */
+body[data-tema="gunduz"] .sadece-aksam,
+body[data-tema="aksam"] .sadece-gunduz {
+  display: none;
+}
+
+/* ============================================
+   GENEL AYARLAR
+   ============================================ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth; /* menü bağlantılarında yumuşak kayma */
+}
+
+body {
+  background-color: var(--arka);
+  color: var(--yazi);
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  transition: background-color 0.6s, color 0.6s; /* tema değişince yumuşak geçiş */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1, h2, .logo {
+  font-family: "DM Serif Display", Georgia, serif;
+  font-weight: 400;
+}
+
+/* ============================================
+   1. ÜST MENÜ
+   ============================================ */
+
+.ust-menu {
+  position: sticky; /* aşağı kayınca üstte kalır */
+  top: env(safe-area-inset-top, 0px); /* telefonda çentiğin altında kalsın */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: var(--arka);
+  border-bottom: 1px solid var(--cizgi);
+  transition: background-color 0.6s;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 1.6rem;
+  color: var(--vurgu);
+}
+
+.ust-menu nav {
+  display: flex;
+  gap: 20px;
+}
+
+.ust-menu nav a {
+  color: var(--soluk);
+  transition: color 0.2s;
+}
+
+.ust-menu nav a:hover {
+  color: var(--yazi);
+}
+
+.ust-menu nav {
+  align-items: center;
+}
+
+/* TR / EN dil butonu */
+.dil-butonu {
+  padding: 4px 10px;
+  background: none;
+  color: var(--vurgu);
+  border: 1px solid var(--cizgi);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.dil-butonu:hover {
+  border-color: var(--vurgu);
+}
+
+/* Menü kartı başlığındaki yazı (eğik olmasın) */
+.kart-baslik {
+  font-style: normal;
+}
+
+/* ============================================
+   2. KARŞILAMA ALANI
+   ============================================ */
+
+.karsilama {
+  position: relative;
+  min-height: 86vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* yanlarda en az 24px; geniş ekranda yazı 1100px'lik ortadaki alana hizalanır */
+  padding: 120px max(24px, calc((100% - 1100px) / 2)) 100px;
+  overflow: hidden; /* kayan fotoğraf kenarlardan taşmasın */
+  text-align: center;
+}
+
+.karsilama-yazi {
+  position: relative;
+  z-index: 1; /* yazılar fotoğrafın önünde */
+  max-width: 500px;
+  text-shadow: 0 2px 18px color-mix(in srgb, var(--arka) 70%, transparent); /* fotoğraf üstünde okunsun */
+}
+
+/* --- Arka plan fotoğrafı --- */
+
+.karsilama-arka {
+  position: absolute;
+  inset: 0;
+  /* fare hareketine göre ters yöne hafif kayma (değerleri JavaScript verir) */
+  translate: calc(var(--fare-x, 0) * -12px) calc(var(--fare-y, 0) * -12px);
+  transition: translate 0.6s ease-out;
+}
+
+.arka-foto,
+.tanecikler {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.arka-foto {
+  object-fit: cover;       /* alanı doldur, oranı bozma */
+  object-position: right center; /* fincan ve burger sağda, dar ekranda da görünsün */
+  animation: yakinlas 24s ease-in-out infinite alternate; /* çok yavaş yakınlaşma */
+  will-change: transform;
+}
+
+/* Yazıların okunması için fotoğrafın sol ve alt tarafını koyulaştıran perde */
+.karsilama-arka::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(0deg, var(--arka) 0%, transparent 30%),
+    linear-gradient(0deg, color-mix(in srgb, var(--arka) 80%, transparent), color-mix(in srgb, var(--arka) 45%, transparent));
+  transition: background 0.6s;
+}
+
+.tanecikler {
+  z-index: 2; /* tanecikler perdenin önünde parlasın */
+  overflow: visible;
+}
+
+/* Tema değişince fotoğraf ve tanecikler yumuşakça yer değiştirir */
+.gorsel-gunduz,
+.gorsel-aksam {
+  transition: opacity 1.2s ease;
+}
+
+body[data-tema="gunduz"] .gorsel-aksam,
+body[data-tema="aksam"] .gorsel-gunduz {
+  opacity: 0;
+}
+
+/* Görünmeyen fotoğrafın ve taneciklerin hareketlerini durdur (bilgisayarı boşuna yormasın) */
+body[data-tema="gunduz"] .gorsel-aksam,
+body[data-tema="gunduz"] .gorsel-aksam *,
+body[data-tema="aksam"] .gorsel-gunduz,
+body[data-tema="aksam"] .gorsel-gunduz * {
+  animation-play-state: paused;
+}
+
+/* --- Uçan tanecikler (aroma ve kıvılcım) --- */
+/* Her taneciğin yönü (--x), yolu (--yol), hızı ve gecikmesi HTML'de kendi satırında yazılı */
+
+.tane {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: kivilcim 4s ease-out infinite;
+}
+
+.tane-krem    { fill: var(--yazi); }
+.tane-vurgu   { fill: var(--vurgu); }
+.tane-vurgu-2 { fill: var(--vurgu-2); }
+
+@keyframes yakinlas {
+  from { transform: scale(1.04); }
+  to   { transform: scale(1.14); }
+}
+
+/* Karşılama yazıları sayfa açılınca sırayla aşağıdan belirir */
+.karsilama-yazi > * {
+  animation: giris 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+}
+
+.karsilama-yazi > *:nth-child(2) { animation-delay: 0.12s; }
+.karsilama-yazi > *:nth-child(3) { animation-delay: 0.24s; }
+.karsilama-yazi > *:nth-child(4) { animation-delay: 0.36s; }
+
+@keyframes giris {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Geniş ekranda yazılar sola yaslanır, fotoğrafın sol tarafı daha koyu olur */
+@media (min-width: 860px) {
+  .karsilama {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .karsilama-arka::after {
+    background:
+      linear-gradient(0deg, var(--arka) 0%, transparent 25%),
+      linear-gradient(90deg,
+        var(--arka) 0%,
+        color-mix(in srgb, var(--arka) 85%, transparent) 30%,
+        color-mix(in srgb, var(--arka) 15%, transparent) 65%,
+        transparent 100%);
+  }
+}
+
+/* ============================================
+   MİNİ ÇİZİMLER (menü başlıklarındaki fincan ve burger)
+   Renklerini temadan alırlar, tema değişince onlar da değişir.
+   ============================================ */
+
+.mini-cizim {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  overflow: visible;
+  animation: suzul 5s ease-in-out infinite; /* hafifçe yukarı aşağı süzülür */
+}
+
+/* Küçük çizimde çizgiler incecik kalmasın diye kalın */
+.cizim .dolgu {
+  fill: var(--yuzey);
+  stroke: var(--vurgu);
+  stroke-width: 12;
+  stroke-linejoin: round;
+  transition: fill 0.6s, stroke 0.6s;
+}
+
+.cizim .cizgi-kalin {
+  fill: none;
+  stroke: var(--vurgu);
+  stroke-width: 14;
+  stroke-linecap: round;
+}
+
+.cizim .kahve {
+  fill: var(--arka);
+  stroke: var(--vurgu);
+  stroke-width: 10;
+}
+
+.cizim .krema {
+  fill: var(--soluk);
+  opacity: 0.6;
+}
+
+.cizim .peynir {
+  fill: var(--vurgu-2);
+}
+
+/* Buhar ve duman: sağa sola salınarak yükselir, uzayıp dağılır */
+.cizim .buhar {
+  fill: none;
+  stroke: var(--soluk);
+  stroke-width: 12;
+  stroke-linecap: round;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: yuksel 3.6s ease-in-out infinite;
+}
+
+.cizim .buhar-2 { animation-delay: 1.2s; animation-duration: 4s; }
+.cizim .buhar-3 { animation-delay: 2.4s; animation-duration: 3.3s; }
+
+@keyframes suzul {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-4px) rotate(-3deg); }
+}
+
+@keyframes yuksel {
+  0%   { opacity: 0;    transform: translate(0, 12px) scaleY(0.8); }
+  25%  { opacity: 0.75; }
+  60%  { transform: translate(4px, -8px) scaleY(1.05); }
+  100% { opacity: 0;    transform: translate(-3px, -28px) scaleY(1.2); }
+}
+
+/* Tanecik hareketi: --x kadar yana, --yol kadar yukarı; yolda titreyip söner */
+@keyframes kivilcim {
+  0%   { opacity: 0; transform: translate(0, 0) scale(1); }
+  15%  { opacity: 1; }
+  50%  { opacity: 0.6; transform: translate(calc(var(--x) * 0.5), calc(var(--yol) * 0.5)) scale(1.2); }
+  65%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--x), var(--yol)) scale(0.4); }
+}
+
+.rozet {
+  display: inline-block;
+  padding: 6px 14px;
+  margin-bottom: 24px;
+  border: 1px solid var(--cizgi);
+  border-radius: 999px;
+  color: var(--vurgu-2);
+  font-size: 0.9rem;
+}
+
+.karsilama h1 {
+  font-size: clamp(2.4rem, 7vw, 4rem); /* ekran küçülünce yazı da küçülür */
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.alt-baslik {
+  color: var(--soluk);
+  font-size: 1.1rem;
+  margin-bottom: 36px;
+}
+
+.buton {
+  display: inline-block;
+  padding: 14px 28px;
+  background-color: var(--vurgu);
+  color: var(--arka);
+  border-radius: 999px;
+  font-weight: 700;
+  transition: transform 0.2s, background-color 0.6s;
+}
+
+.buton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--vurgu) 40%, transparent);
+}
+
+/* Butonun üstünden geçen ışık parıltısı */
+.buton {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s, background-color 0.6s;
+}
+
+.buton::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transform: skewX(-20deg);
+  animation: parilti 4s ease-in-out 1.5s infinite;
+}
+
+@keyframes parilti {
+  0%   { left: -60%; }
+  30%  { left: 130%; }
+  100% { left: 130%; }
+}
+
+/* ============================================
+   KAYAN YAZI ŞERİDİ
+   ============================================ */
+
+.serit {
+  position: relative; /* süzülen süslerin önünde kalsın */
+  overflow: hidden; /* taşan yazıyı gizle */
+  border-top: 1px solid var(--cizgi);
+  border-bottom: 1px solid var(--cizgi);
+  background-color: var(--yuzey);
+  transition: background-color 0.6s;
+}
+
+.serit-ic {
+  display: flex;
+  width: max-content;
+  animation: kay 50s linear infinite;
+  will-change: transform;
+}
+
+.serit-grup {
+  display: flex;
+  align-items: center;
+}
+
+.serit span {
+  margin: 0 32px; /* yazıların arasındaki boşluk */
+  padding: 14px 0;
+  white-space: nowrap;
+  color: var(--vurgu);
+  font-family: "DM Serif Display", Georgia, serif;
+  font-size: 1.3rem;
+}
+
+/* Yazıların arasındaki yumuşak, hafif parlayan nokta */
+.serit i {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: var(--vurgu-2);
+  opacity: 0.6;
+  box-shadow: 0 0 8px var(--vurgu-2);
+}
+
+/* Yazı iki kez yan yana yazılı; yarısı kadar kayınca başa döner, kesinti görünmez */
+@keyframes kay {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ============================================
+   GÜNÜN RİTMİ
+   ============================================ */
+
+.ritim-cubuk {
+  height: 8px;
+  margin-bottom: 28px;
+  background-color: var(--yuzey);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.ritim-dolu {
+  width: 0;
+  height: 100%;
+  background-color: var(--vurgu);
+  border-radius: 999px;
+  transition: width 1.5s ease-out, background-color 0.6s;
+}
+
+.ritim-adimlar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.ritim-adimlar > div {
+  flex: 1 1 200px;
+}
+
+.ritim-saat {
+  color: var(--vurgu-2);
+  font-weight: 700;
+}
+
+.ritim-adimlar h3 {
+  margin: 4px 0;
+}
+
+.ritim-adimlar p {
+  color: var(--soluk);
+}
+
+/* ============================================
+   KAYDIRINCA BELİREN BÖLÜMLER
+   "hareketli" sınıfını JavaScript ekler; JS çalışmazsa her şey normal görünür.
+   ============================================ */
+
+.hareketli .belir {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.hareketli .belir.gorundu {
+  opacity: 1;
+  transform: none;
+}
+
+/* Bölüm belirince menüdeki ürünler de sırayla gelir */
+.hareketli .belir li {
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.hareketli .belir.gorundu li {
+  opacity: 1;
+  transform: none;
+}
+
+.hareketli .belir li:nth-child(2) { transition-delay: 0.08s; }
+.hareketli .belir li:nth-child(3) { transition-delay: 0.16s; }
+.hareketli .belir li:nth-child(4) { transition-delay: 0.24s; }
+.hareketli .belir li:nth-child(5) { transition-delay: 0.32s; }
+
+/* ============================================
+   BÖLÜMLER (Menü, Hakkımızda, İletişim)
+   ============================================ */
+
+.bolum {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  border-top: 1px solid var(--cizgi);
+  scroll-margin-top: 64px; /* menüden gelince başlık üst menünün altında kalmasın */
+}
+
+.bolum h2 {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+
+.bolum > p {
+  color: var(--soluk);
+  max-width: 640px;
+}
+
+.bolum-aciklama {
+  margin-bottom: 32px;
+}
+
+/* Hakkımızda hikâyesi: paragraflar arası boşluk, okunaklı satır uzunluğu */
+.hikaye {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 640px;
+  margin-top: 8px;
+  color: var(--soluk);
+}
+
+/* ============================================
+   3. MENÜ KARTLARI
+   ============================================ */
+
+.menu-izgara {
+  display: flex;
+  flex-wrap: wrap; /* dar ekranda alt alta geçer */
+  gap: 24px;
+}
+
+.menu-kart {
+  flex: 1 1 320px;
+  padding: 28px;
+  background-color: var(--yuzey);
+  border: 1px solid var(--cizgi);
+  border-radius: 16px;
+  overflow: hidden; /* fotoğraf kartın yuvarlak köşelerinden taşmasın */
+  transition: background-color 0.6s, transform 0.3s, border-color 0.3s;
+}
+
+/* Kartın en üstündeki fotoğraf: kenardan kenara */
+.menu-foto {
+  display: block;
+  width: calc(100% + 56px);
+  max-width: none; /* bazı ortamlar resimleri kutu genişliğiyle sınırlar; bu fotoğraf kenardan kenara taşmalı */
+  height: 200px;
+  margin: -28px -28px 20px; /* kartın iç boşluğunu geri alır */
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.menu-kahve .menu-foto  { object-position: 60% 45%; }
+.menu-burger .menu-foto { object-position: center 55%; }
+
+/* Fareyle karta gelince fotoğraf hafifçe yakınlaşır */
+.menu-kart:hover .menu-foto {
+  transform: scale(1.05);
+}
+
+/* Fareyle üstüne gelince kart hafifçe yükselir */
+.menu-kart:hover {
+  transform: translateY(-4px);
+  border-color: var(--vurgu);
+}
+
+/* Akşam temasında burgerler öne geçer */
+body[data-tema="aksam"] .menu-burger {
+  order: -1;
+}
+
+.menu-kart h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 1.2rem;
+}
+
+.menu-kart ul {
+  list-style: none;
+}
+
+.menu-kart li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--cizgi);
+}
+
+.menu-kart li:last-child {
+  border-bottom: none;
+}
+
+.menu-kart small {
+  display: block;
+  color: var(--soluk);
+}
+
+/* Fiyatlar (listedeki satırın sağındaki yazı) */
+.menu-kart li > span {
+  color: var(--vurgu);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ============================================
+   5. İLETİŞİM
+   ============================================ */
+
+.iletisim-izgara {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+.iletisim-izgara > div {
+  flex: 1 1 200px;
+}
+
+.iletisim-izgara h3 {
+  color: var(--vurgu);
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.iletisim-izgara p {
+  color: var(--soluk);
+}
+
+/* ============================================
+   6. ALT BİLGİ
+   ============================================ */
+
+.alt-bilgi {
+  padding: 32px 24px;
+  text-align: center;
+  color: var(--soluk);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--cizgi);
+}
+
+/* ============================================
+   KENARLARDA SÜZÜLEN SÜSLER
+   Ekrana sabitlenmiş bir katman; süsler alttan yukarı süzülür.
+   Yazıların arkasında kalır, fareyle tıklanamaz.
+   ============================================ */
+
+.susler {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  display: none; /* dar ekranda kenar boşluğu yok, gösterme */
+}
+
+/* Sadece kenarlarda boşluk kalan geniş ekranlarda göster */
+@media (min-width: 1200px) {
+  .susler {
+    display: block;
+  }
+}
+
+.sus-grup {
+  position: absolute;
+  inset: 0;
+}
+
+.sus {
+  position: absolute;
+  top: 0;
+  width: var(--boy);
+  height: var(--boy);
+  opacity: 0.45; /* soluk: dikkat dağıtmasın */
+  overflow: visible;
+  animation: suzul-yukari var(--sure) linear var(--gecikme) infinite;
+  will-change: transform;
+}
+
+/* Alttan girer, sağa sola salınıp dönerek yukarıdan çıkar.
+   Gecikmeler eksi olduğu için sayfa açıldığında süsler zaten yolun ortasında olur. */
+@keyframes suzul-yukari {
+  0%   { transform: translate(0, 110vh) rotate(0deg); }
+  50%  { transform: translate(var(--salin), 45vh) rotate(calc(var(--don) / 2)); }
+  100% { transform: translate(0, -15vh) rotate(var(--don)); }
+}
+
+/* Süs şekillerinin renkleri (temadan gelir) */
+.s-dolgu   { fill: var(--yuzey); stroke: var(--vurgu); stroke-width: 5; stroke-linejoin: round; }
+.s-sap     { fill: none; stroke: var(--vurgu); stroke-width: 6; stroke-linecap: round; }
+.s-kahve   { fill: var(--arka); stroke: var(--vurgu); stroke-width: 4; }
+.s-cekirdek { fill: var(--yuzey); stroke: var(--vurgu-2); stroke-width: 5; }
+.s-cizgi   { fill: none; stroke: var(--vurgu-2); stroke-width: 5; stroke-linecap: round; }
+.s-patates { fill: var(--vurgu-2); stroke: var(--vurgu); stroke-width: 4; }
+.s-patates-iz { fill: none; stroke: var(--vurgu); stroke-width: 3; stroke-linecap: round; opacity: 0.6; }
+.s-ketcap  { fill: var(--vurgu); }
+.s-hardal  { fill: var(--vurgu-2); }
+.s-parlak  { fill: #fff; opacity: 0.35; }
+
+/* ============================================
+   TEMA DENEME BUTONU
+   ============================================ */
+
+.deneme-butonlari {
+  position: fixed; /* ekranın köşesinde sabit durur */
+  right: calc(16px + env(safe-area-inset-right, 0px));
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  gap: 8px;
+  z-index: 20;
+}
+
+.tema-butonu {
+  padding: 10px 16px;
+  background-color: var(--yuzey);
+  color: var(--yazi);
+  border: 1px solid var(--cizgi);
+  border-radius: 999px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ============================================
+   HAREKETİ AZALT
+   Bilgisayarında "animasyonları azalt" seçili olanlar için hareketleri durdur.
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .arka-foto,
+  .tane,
+  .karsilama-yazi > *,
+  .mini-cizim,
+  .cizim *,
+  .buton::after,
+  .serit-ic {
+    animation: none;
+  }
+
+  .cizim .buhar {
+    opacity: 0.5;
+  }
+
+  .susler {
+    display: none;
+  }
+
+  .hareketli .belir,
+  .hareketli .belir li {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ============================================
+   TELEFON EKRANLARI
+   ============================================ */
+
+@media (max-width: 560px) {
+  .ust-menu {
+    padding: 14px 16px;
+  }
+
+  .ust-menu nav {
+    gap: 14px;
+    font-size: 0.9rem;
+  }
+
+  .karsilama {
+    min-height: 78vh;
+    padding: 80px 16px 70px;
+  }
+
+  .bolum {
+    padding: 60px 16px;
+  }
+}
